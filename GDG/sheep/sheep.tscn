@@ -384,6 +384,7 @@ position = Vector2(26, 36)
 scale = Vector2(6.52991, 6.52991)
 sprite_frames = SubResource("SpriteFrames_fdre8")
 animation = &"left"
+frame = 2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true

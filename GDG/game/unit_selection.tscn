@@ -7,13 +7,6 @@ var selected_units = {}
 var is_selecting = false
 var begin_point
 var end_point
-const TEAM_LAYER = 1
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Set selection cursor's team
-	$Area2D.set_collision_mask_value(TEAM_LAYER, true)
-	$Area2D.get_instance_id()
 
 func _input(event):
 	# Already in select mode
@@ -43,6 +36,7 @@ func end_selection():
 	$Area2D/CollisionPolygon2D.disabled = true
 	$Panel.visible = false
 	for unit in selected_units.values():
+		get_parent().selected_units = selected_units.duplicate().values()
 		unit.get_parent().select()
 
 func draw_selection():
