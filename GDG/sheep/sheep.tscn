@@ -347,23 +347,23 @@ _data = {
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_45wrw"]
 animation = &"left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h0re7"]
-animation = &"up"
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o5yya"]
 animation = &"right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nl3t8"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lac7r"]
 animation = &"down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhwx6"]
+animation = &"up"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_p78a4"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_45wrw")
 blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_h0re7")
-blend_point_1/pos = Vector2(0, 1)
-blend_point_2/node = SubResource("AnimationNodeAnimation_o5yya")
-blend_point_2/pos = Vector2(1, 0)
-blend_point_3/node = SubResource("AnimationNodeAnimation_nl3t8")
+blend_point_1/node = SubResource("AnimationNodeAnimation_o5yya")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_lac7r")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_jhwx6")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
@@ -378,13 +378,14 @@ scale = Vector2(6.01218, 6.01218)
 shape = SubResource("RectangleShape2D_qksau")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-28, 10)
+position = Vector2(-34, -37)
 scale = Vector2(6.52991, 6.52991)
 sprite_frames = SubResource("SpriteFrames_fdre8")
-animation = &"up"
+animation = &"left"
 frame = 3
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
 
 [node name="NavigationTimer" type="Timer" parent="."]
 autostart = true
@@ -398,6 +399,6 @@ libraries = {
 tree_root = SubResource("AnimationNodeBlendSpace2D_p78a4")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/blend_position = Vector2(0.00320005, 0.0131004)
+parameters/blend_position = Vector2(0, 0)
 
 [connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
