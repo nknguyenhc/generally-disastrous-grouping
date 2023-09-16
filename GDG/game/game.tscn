@@ -1,3 +1,46 @@
-[gd_scene format=3 uid="uid://bt3k8nbdjipr4"]
+[gd_scene load_steps=3 format=3 uid="uid://bt3k8nbdjipr4"]
+
+[ext_resource type="PackedScene" uid="uid://mk64dolx5ocy" path="res://sheep/sheep.tscn" id="1_xtblf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b2drj"]
 
 [node name="Game" type="Node2D"]
+
+[node name="sheep" parent="." instance=ExtResource("1_xtblf")]
+position = Vector2(610, 320)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(214, 324)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+scale = Vector2(10.2669, 10.2669)
+shape = SubResource("RectangleShape2D_b2drj")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="."]
+position = Vector2(608, 630)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D4"]
+scale = Vector2(10.2669, 10.2669)
+shape = SubResource("RectangleShape2D_b2drj")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="."]
+position = Vector2(1033, 329)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D3"]
+scale = Vector2(10.2669, 10.2669)
+shape = SubResource("RectangleShape2D_b2drj")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="."]
+position = Vector2(608, 25)
+collision_layer = 4
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
+scale = Vector2(10.2669, 10.2669)
+shape = SubResource("RectangleShape2D_b2drj")
