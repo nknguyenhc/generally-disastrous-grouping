@@ -1,0 +1,89 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6hwc4lcsb2x4"]
+
+[sub_resource type="GDScript" id="GDScript_1u4o5"]
+script/source = "extends Control
+
+var selected_units = {}
+var is_selecting = false
+var begin_point
+var end_point
+const TEAM_LAYER = 1
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	# Set selection cursor's team
+	$Area2D.set_collision_mask_value(TEAM_LAYER, true)
+	$Area2D.get_instance_id()
+
+func _input(event):
+	# Already in select mode
+	if is_selecting:
+		# Dragging mouse
+		if event is InputEventMouseMotion:
+			draw_selection()
+		# Finish selecting
+		if event.is_action_released(\"select_unit\"):
+			end_selection()
+		# Deselect
+#		if event.is_action_pressed(\"ui_unit_select\"):
+#			end_selection()
+	else:
+		# Start selecting
+		if event.is_action_pressed(\"select_unit\"):
+			for unit in selected_units.values():
+				unit.get_parent().deselect()
+			selected_units.clear()
+			is_selecting = true
+			begin_point = get_global_mouse_position()
+			draw_selection()
+			# Reset selection here
+
+func end_selection():
+	is_selecting = false
+	$Area2D/CollisionPolygon2D.disabled = true
+	$Panel.visible = false
+	for unit in selected_units.values():
+		unit.get_parent().select()
+
+func draw_selection():
+	$Area2D/CollisionPolygon2D.disabled = false
+	$Panel.visible = true
+	end_point = get_global_mouse_position()
+	var vertices = [begin_point, Vector2(end_point.x, begin_point.y), end_point, Vector2(begin_point.x, end_point.y)]
+	$Area2D/CollisionPolygon2D.polygon = vertices
+	$Panel.set_begin(Vector2(min(begin_point.x, end_point.x), min(begin_point.y, end_point.y)))
+	$Panel.set_end(Vector2(max(begin_point.x, end_point.x), max(begin_point.y, end_point.y)))
+
+func _on_area_2d_area_entered(area : Area2D):
+	selected_units[area.get_instance_id()] = area
+	area.get_parent().select_preview()
+
+func _on_area_2d_area_exited(area : Area2D):
+	selected_units.erase(area.get_instance_id())
+	area.get_parent().deselect_preview()
+"
+
+[node name="UnitSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_1u4o5")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0)
+
+[node name="Panel" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
