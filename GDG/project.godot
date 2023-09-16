@@ -14,3 +14,8 @@ config/name="Generally-disastrous-grouping"
 run/main_scene="res://game/root.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1136
+window/size/viewport_height=640

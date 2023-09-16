@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5m82j05wvhc5"]
+
+[ext_resource type="PackedScene" uid="uid://dh7r38na1h0uu" path="res://map/map.tscn" id="1_lb5dv"]
+[ext_resource type="Script" path="res://UI/start.gd" id="1_pijr8"]
+[ext_resource type="StyleBox" uid="uid://slue4dqinalq" path="res://UI/button.tres" id="3_stlmu"]
+[ext_resource type="StyleBox" uid="uid://donr7anrpvrbq" path="res://UI/button-hover.tres" id="4_y35kq"]
+
+[node name="Start" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pijr8")
+
+[node name="map" parent="." instance=ExtResource("1_lb5dv")]
+
+[node name="Panel" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.5
+offset_top = -34.5
+offset_right = 100.5
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("3_stlmu")
+theme_override_styles/hover = ExtResource("4_y35kq")
+theme_override_styles/pressed = ExtResource("4_y35kq")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -13.0
+offset_right = 24.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "START"
+
+[connection signal="pressed" from="Panel" to="." method="_on_panel_pressed"]
