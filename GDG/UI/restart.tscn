@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://b7s3awq6lemik"]
+
+[ext_resource type="StyleBox" uid="uid://slue4dqinalq" path="res://UI/button.tres" id="1_6o3lg"]
+[ext_resource type="Script" path="res://UI/restart.gd" id="1_pi0bm"]
+[ext_resource type="StyleBox" uid="uid://donr7anrpvrbq" path="res://UI/button-hover.tres" id="2_gdd1b"]
+
+[node name="Restart" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pi0bm")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.5
+offset_top = -34.5
+offset_right = 84.5
+offset_bottom = 34.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = ExtResource("1_6o3lg")
+theme_override_styles/hover = ExtResource("2_gdd1b")
+theme_override_styles/pressed = ExtResource("2_gdd1b")
+
+[node name="Label" type="Label" parent="Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.5
+offset_top = -22.5
+offset_right = 31.5
+offset_bottom = 22.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "RESTART"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
