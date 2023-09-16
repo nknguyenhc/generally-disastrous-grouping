@@ -12,5 +12,5 @@ config_version=5
 
 config/name="Generally-disastrous-grouping"
 run/main_scene="res://game/root.tscn"
-config/features=PackedStringArray("4.0", "Forward Plus")
+config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
