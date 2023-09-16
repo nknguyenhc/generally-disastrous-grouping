@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://sheep/sheep.gd" id="1_26aqx"]
 [ext_resource type="Texture2D" uid="uid://bt2127q7gakfg" path="res://assets/sheep/Sheep Sprite.png" id="1_cngvq"]
-[ext_resource type="PackedScene" uid="uid://p7p3vqidgv0i" path="res://interface/unit_select_preview_border.tscn" id="3_g6erd"]
-[ext_resource type="PackedScene" uid="uid://0ftr1a14hmfg" path="res://interface/unit_selected_border.tscn" id="4_r2b2i"]
+[ext_resource type="PackedScene" uid="uid://0ftr1a14hmfg" path="res://interface/unit_selected_border.tscn" id="3_a6vvi"]
+[ext_resource type="PackedScene" uid="uid://p7p3vqidgv0i" path="res://interface/unit_select_preview_border.tscn" id="4_2ypem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qksau"]
 size = Vector2(136, 136)
@@ -347,30 +347,29 @@ _data = {
 "up": SubResource("Animation_th2hv")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_45wrw"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8rhr"]
 animation = &"left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o5yya"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bmtoo"]
 animation = &"right"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lac7r"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2mgu"]
 animation = &"down"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhwx6"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2l13j"]
 animation = &"up"
 
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_p78a4"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_45wrw")
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_x3lkn"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_i8rhr")
 blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_o5yya")
+blend_point_1/node = SubResource("AnimationNodeAnimation_bmtoo")
 blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_lac7r")
+blend_point_2/node = SubResource("AnimationNodeAnimation_a2mgu")
 blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_jhwx6")
+blend_point_3/node = SubResource("AnimationNodeAnimation_2l13j")
 blend_point_3/pos = Vector2(0, -1)
-blend_mode = 1
 
-[node name="Sheep" type="CharacterBody2D" groups=["Unit"]]
+[node name="Sheep" type="CharacterBody2D"]
 collision_mask = 12
 script = ExtResource("1_26aqx")
 metadata/_edit_vertical_guides_ = [-73.0]
@@ -384,6 +383,7 @@ position = Vector2(26, 36)
 scale = Vector2(6.52991, 6.52991)
 sprite_frames = SubResource("SpriteFrames_fdre8")
 animation = &"left"
+frame = 2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -397,16 +397,10 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace2D_p78a4")
+tree_root = SubResource("AnimationNodeBlendSpace2D_x3lkn")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/blend_position = Vector2(0, 0)
-
-[node name="UnitSelectPreviewBorder" parent="." instance=ExtResource("3_g6erd")]
-visible = false
-
-[node name="UnitSelectedBorder" parent="." instance=ExtResource("4_r2b2i")]
-visible = false
 
 [node name="SelectableArea" type="Area2D" parent="."]
 collision_layer = 16
@@ -415,4 +409,8 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SelectableArea"]
 shape = SubResource("RectangleShape2D_qksau")
 
-[connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
+[node name="UnitSelectedBorder" parent="." instance=ExtResource("3_a6vvi")]
+visible = false
+
+[node name="UnitSelectPreviewBorder" parent="." instance=ExtResource("4_2ypem")]
+visible = false

@@ -3,17 +3,11 @@
 [sub_resource type="GDScript" id="GDScript_1u4o5"]
 script/source = "extends Control
 
-var selected_units = {}
+var preview_selected_units = {}
+var selected_units = []
 var is_selecting = false
 var begin_point
 var end_point
-const TEAM_LAYER = 1
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	# Set selection cursor's team
-	$Area2D.set_collision_mask_value(TEAM_LAYER, true)
-	$Area2D.get_instance_id()
 
 func _input(event):
 	# Already in select mode
@@ -30,19 +24,21 @@ func _input(event):
 	else:
 		# Start selecting
 		if event.is_action_pressed(\"select_unit\"):
-			for unit in selected_units.values():
+			# Clear old selection
+			for unit in selected_units:
 				unit.get_parent().deselect()
 			selected_units.clear()
+			# Start new selection
 			is_selecting = true
 			begin_point = get_global_mouse_position()
 			draw_selection()
-			# Reset selection here
 
 func end_selection():
 	is_selecting = false
 	$Area2D/CollisionPolygon2D.disabled = true
 	$Panel.visible = false
-	for unit in selected_units.values():
+	selected_units = preview_selected_units.values().duplicate()
+	for unit in preview_selected_units.values():
 		unit.get_parent().select()
 
 func draw_selection():
@@ -55,11 +51,11 @@ func draw_selection():
 	$Panel.set_end(Vector2(max(begin_point.x, end_point.x), max(begin_point.y, end_point.y)))
 
 func _on_area_2d_area_entered(area : Area2D):
-	selected_units[area.get_instance_id()] = area
+	preview_selected_units[area.get_instance_id()] = area
 	area.get_parent().select_preview()
 
 func _on_area_2d_area_exited(area : Area2D):
-	selected_units.erase(area.get_instance_id())
+	preview_selected_units.erase(area.get_instance_id())
 	area.get_parent().deselect_preview()
 "
 
