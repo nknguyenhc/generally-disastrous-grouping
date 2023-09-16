@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://mk64dolx5ocy"]
+[gd_scene load_steps=36 format=3 uid="uid://mk64dolx5ocy"]
 
 [ext_resource type="Script" path="res://sheep/sheep.gd" id="1_26aqx"]
 [ext_resource type="Texture2D" uid="uid://bt2127q7gakfg" path="res://assets/sheep/Sheep Sprite.png" id="1_cngvq"]
@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://p7p3vqidgv0i" path="res://interface/unit_select_preview_border.tscn" id="4_2ypem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qksau"]
-size = Vector2(136, 136)
+size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvlgr"]
 atlas = ExtResource("1_cngvq")
@@ -382,8 +382,7 @@ shape = SubResource("RectangleShape2D_qksau")
 position = Vector2(26, 36)
 scale = Vector2(6.52991, 6.52991)
 sprite_frames = SubResource("SpriteFrames_fdre8")
-animation = &"left"
-frame = 2
+animation = &"right"
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true

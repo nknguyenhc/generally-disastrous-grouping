@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bt3k8nbdjipr4"]
+[gd_scene load_steps=6 format=3 uid="uid://bt3k8nbdjipr4"]
 
 [ext_resource type="Script" path="res://game/game.gd" id="1_tq8if"]
 [ext_resource type="PackedScene" uid="uid://dh7r38na1h0uu" path="res://map/map.tscn" id="2_7qmvw"]
+[ext_resource type="PackedScene" uid="uid://b6hwc4lcsb2x4" path="res://game/unit_selection.tscn" id="2_ao3rd"]
 [ext_resource type="PackedScene" uid="uid://bsgxiotox0hji" path="res://wolf/wolf.tscn" id="4_2htbu"]
 [ext_resource type="PackedScene" uid="uid://dos18u0bvkup2" path="res://UI/ui.tscn" id="5_dyibm"]
 
@@ -30,5 +31,7 @@ scale = Vector2(0.193678, 0.193678)
 [node name="wolf4" parent="." instance=ExtResource("4_2htbu")]
 position = Vector2(298, 411)
 scale = Vector2(0.160979, 0.160979)
+
+[node name="UnitSelection" parent="." instance=ExtResource("2_ao3rd")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
