@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://sheep/sheep.gd" id="1_26aqx"]
 [ext_resource type="Texture2D" uid="uid://bt2127q7gakfg" path="res://assets/sheep/Sheep Sprite.png" id="1_cngvq"]
+[ext_resource type="PackedScene" uid="uid://0ftr1a14hmfg" path="res://interface/unit_selected_border.tscn" id="3_a6vvi"]
+[ext_resource type="PackedScene" uid="uid://p7p3vqidgv0i" path="res://interface/unit_select_preview_border.tscn" id="4_2ypem"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qksau"]
 size = Vector2(136, 136)
@@ -345,6 +347,28 @@ _data = {
 "up": SubResource("Animation_th2hv")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8rhr"]
+animation = &"left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bmtoo"]
+animation = &"right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a2mgu"]
+animation = &"down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2l13j"]
+animation = &"up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_x3lkn"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_i8rhr")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_bmtoo")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_a2mgu")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_2l13j")
+blend_point_3/pos = Vector2(0, -1)
+
 [node name="Sheep" type="CharacterBody2D"]
 collision_mask = 12
 script = ExtResource("1_26aqx")
@@ -371,3 +395,22 @@ autostart = true
 libraries = {
 "": SubResource("AnimationLibrary_5ddfh")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendSpace2D_x3lkn")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/blend_position = Vector2(0, 0)
+
+[node name="SelectableArea" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectableArea"]
+shape = SubResource("RectangleShape2D_qksau")
+
+[node name="UnitSelectedBorder" parent="." instance=ExtResource("3_a6vvi")]
+visible = false
+
+[node name="UnitSelectPreviewBorder" parent="." instance=ExtResource("4_2ypem")]
+visible = false
