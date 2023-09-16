@@ -1,9 +1,7 @@
-[gd_scene load_steps=36 format=3 uid="uid://mk64dolx5ocy"]
+[gd_scene load_steps=29 format=3 uid="uid://mk64dolx5ocy"]
 
 [ext_resource type="Script" path="res://sheep/sheep.gd" id="1_26aqx"]
 [ext_resource type="Texture2D" uid="uid://bt2127q7gakfg" path="res://assets/sheep/Sheep Sprite.png" id="1_cngvq"]
-[ext_resource type="PackedScene" uid="uid://p7p3vqidgv0i" path="res://interface/unit_select_preview_border.tscn" id="3_g6erd"]
-[ext_resource type="PackedScene" uid="uid://0ftr1a14hmfg" path="res://interface/unit_selected_border.tscn" id="4_r2b2i"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qksau"]
 size = Vector2(136, 136)
@@ -347,30 +345,7 @@ _data = {
 "up": SubResource("Animation_th2hv")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_45wrw"]
-animation = &"left"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o5yya"]
-animation = &"right"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lac7r"]
-animation = &"down"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jhwx6"]
-animation = &"up"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_p78a4"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_45wrw")
-blend_point_0/pos = Vector2(-1, 0)
-blend_point_1/node = SubResource("AnimationNodeAnimation_o5yya")
-blend_point_1/pos = Vector2(1, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_lac7r")
-blend_point_2/pos = Vector2(0, 1)
-blend_point_3/node = SubResource("AnimationNodeAnimation_jhwx6")
-blend_point_3/pos = Vector2(0, -1)
-blend_mode = 1
-
-[node name="Sheep" type="CharacterBody2D" groups=["Unit"]]
+[node name="Sheep" type="CharacterBody2D"]
 collision_mask = 12
 script = ExtResource("1_26aqx")
 metadata/_edit_vertical_guides_ = [-73.0]
@@ -383,36 +358,9 @@ shape = SubResource("RectangleShape2D_qksau")
 position = Vector2(26, 36)
 scale = Vector2(6.52991, 6.52991)
 sprite_frames = SubResource("SpriteFrames_fdre8")
-animation = &"left"
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-debug_enabled = true
-
-[node name="NavigationTimer" type="Timer" parent="."]
-autostart = true
+animation = &"down"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_5ddfh")
 }
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace2D_p78a4")
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/blend_position = Vector2(0, 0)
-
-[node name="UnitSelectPreviewBorder" parent="." instance=ExtResource("3_g6erd")]
-visible = false
-
-[node name="UnitSelectedBorder" parent="." instance=ExtResource("4_r2b2i")]
-visible = false
-
-[node name="SelectableArea" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SelectableArea"]
-shape = SubResource("RectangleShape2D_qksau")
-
-[connection signal="timeout" from="NavigationTimer" to="." method="_on_navigation_timer_timeout"]
